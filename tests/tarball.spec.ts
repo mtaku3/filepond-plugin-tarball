@@ -1,4 +1,4 @@
-import FilepondTarball from '../src/tarball';
+import FilePondPluginTarball from '../src/tarball';
 import {Item, ItemType} from '../src/types';
 import {generateTar} from '../src/utils';
 
@@ -21,7 +21,7 @@ describe('Plugin', () => {
       filters.push(callback);
     };
 
-    const options = FilepondTarball()({addFilter});
+    const options = FilePondPluginTarball()({addFilter});
     // Execute
     const files = await filters[0]([
       ...getItems(2),
@@ -45,7 +45,7 @@ describe('Plugin', () => {
     generateTar([...pictures, ...documents]);
     const callback = jest.fn();
 
-    const options = FilepondTarball(callback)({addFilter});
+    const options = FilePondPluginTarball(callback)({addFilter});
     // Execute
     const files = await filters[0]([...getItems(2), ...pictures, ...documents, ...getItems()]);
 

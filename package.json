@@ -1,14 +1,14 @@
 {
   "name": "filepond-plugin-tarball",
   "version": "1.0.0",
-  "description": "Tarball Filepond Directory Uploads",
+  "description": "Tarball FilePond Directory Uploads",
   "source": "src/tarball.ts",
   "main": "dist/tarball.js",
   "module": "dist/tarball.esm.js",
   "unpkg": "dist/tarball.min.js",
   "scripts": {
-    "build": "microbundle --name FilepondTarball",
-    "dev": "microbundle watch --name FilepondTarball",
+    "build": "microbundle --name FilePondPluginTarball",
+    "dev": "microbundle watch --name FilePondPluginTarball",
     "lint": "eslint src",
     "test": "jest --verbose",
     "test:ci": "jest --ci --runInBand --verbose"

@@ -1,7 +1,7 @@
 import {Filter, PluginOptions, TarballCallback} from './types';
 import {generateTar} from './utils';
 
-const FilepondTarball =
+const FilePondPluginTarball =
   (callback?: TarballCallback) =>
   ({addFilter}: PluginOptions): Filter => {
     addFilter('ADD_ITEMS', async (items) => {
@@ -22,4 +22,4 @@ const FilepondTarball =
     return {options: {}};
   };
 
-export default FilepondTarball;
+export default FilePondPluginTarball;

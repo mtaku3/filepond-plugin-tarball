@@ -1,6 +1,6 @@
-# :gift: Filepond Plugin Tarball
+# :gift: FilePond Plugin Tarball
 
-This is an extension plugin for [Filepond](https://pqina.nl/filepond/) uploader where you can upload directories as Tar Files instead of uploading each individual files in them separately.
+This is an extension plugin for [FilePond](https://pqina.nl/filepond/) uploader where you can upload directories as Tar Files instead of uploading each individual files in them separately.
 
 ## :package: Installation
 
@@ -12,12 +12,12 @@ Currently unavailable.
 
 ## :fire: Usage
 
-This may differ depending upon the Framework you are using, but there is good documentation of how to register plugins in various Frameworks in Filepond website which you can follow.
+This may differ depending upon the Framework you are using, but there is good documentation of how to register plugins in various Frameworks in FilePond website which you can follow.
 
 ```js
-import FilepondTarball from 'filepond-plugin-tarball';
+import FilePondPluginTarball from 'filepond-plugin-tarball';
 
-FilePond.registerPlugin(FilepondTarball());
+FilePond.registerPlugin(FilePondPluginTarball());
 
 // Make sure you register it as a function
 // cause you can pass in hook to tap into the tar files.
@@ -27,7 +27,7 @@ FilePond.registerPlugin(FilepondTarball());
 
 In many cases, specially while using some reactive frameworks you might like to show some loading screen while it is archiving files which might take some time depending upon the directory size.
 
-In those cases you can pass a callback function inside the `FilepondTarball()`. If you pass a callback then it won't add the tar files in the queue directly. Instead, it will give you the Array of Promise objects which you can tap into to show loading and inject the tar files when they are done.
+In those cases you can pass a callback function inside the `FilePondTarball()`. If you pass a callback then it won't add the tar files in the queue directly. Instead, it will give you the Array of Promise objects which you can tap into to show loading and inject the tar files when they are done.
 
 **Example:**
 ```js
@@ -51,7 +51,7 @@ const injector = async (generators) => {
   // Stop Loading...
 };
 
-Filepond.registerPlugin(FilepondTarball(injector));
+FilePond.registerPlugin(FilePondPluginTarball(injector));
 ```
 
 ## :microscope: Testing
