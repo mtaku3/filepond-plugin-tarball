@@ -1,4 +1,4 @@
-import JSZip from 'jszip';
+import Tar from 'tarts';
 import {GeneratorCallback, Item, ItemType, OnUpdateCallback} from './types';
 
 const directories = {};
@@ -19,23 +19,35 @@ export const getDirectoryGroups = (items: ItemType[]): Record<string, ItemType[]
   return directories;
 };
 
-export const generateZip = (items: ItemType[]): GeneratorCallback[] => {
+export const generateTar = (items: ItemType[]): GeneratorCallback[] => {
   getDirectoryGroups(items);
 
   return Object.keys(directories).map((name) => {
-    const zip = new JSZip();
+    const entries = [];
 
     directories[name].forEach((file) => {
-      zip.file(file._relativePath, file);
+      entries.push(
+        new Promise((resolve, reject) => {
+          let reader = new FileReader();
+          reader.onload = (event) => {
+            resolve({
+              name: file._relativePath,
+              content: event.target.result
+            })
+          };
+          reader.readAsArrayBuffer(file)
+        })
+      );
     });
 
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete directories[name];
 
     return async (onUpdate?: OnUpdateCallback): Promise<ItemType> => {
-      const file = await zip.generateAsync({type: 'blob'}, onUpdate);
+      const tar = Tar(await Promise.all(entries));
+      const file = new Blob([tar], {"type":"application/x-tar"});
 
-      return new Item([file], `${name}.zip`);
+      return new Item([file], `${name}.tar`);
     };
   });
 };

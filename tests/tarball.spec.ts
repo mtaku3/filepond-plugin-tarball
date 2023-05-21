@@ -1,6 +1,6 @@
 import FilepondTarball from '../src/tarball';
 import {Item, ItemType} from '../src/types';
-import {generateZip} from '../src/utils';
+import {generateTar} from '../src/utils';
 
 const getItems = (count = 1, path = null): ItemType[] => {
   const keys = new Array(count).map((v, i) => i);
@@ -15,7 +15,7 @@ const getItems = (count = 1, path = null): ItemType[] => {
 };
 
 describe('Plugin', () => {
-  test('should replace folders with zip', async () => {
+  test('should replace folders with tar', async () => {
     const filters = [];
     const addFilter = (key, callback) => {
       filters.push(callback);
@@ -34,7 +34,7 @@ describe('Plugin', () => {
     expect(files).toHaveLength(5);
   });
 
-  test('should allow filtering zipped files', async () => {
+  test('should allow filtering archived files', async () => {
     const filters = [];
     const addFilter = (key, callback) => {
       filters.push(callback);
@@ -42,7 +42,7 @@ describe('Plugin', () => {
     const pictures = getItems(30, 'pictures/event');
     const documents = getItems(60, 'documents');
 
-    generateZip([...pictures, ...documents]);
+    generateTar([...pictures, ...documents]);
     const callback = jest.fn();
 
     const options = FilepondTarball(callback)({addFilter});
