@@ -1,8 +1,8 @@
-import {Filter, PluginOptions, ZipperCallback} from './types';
+import {Filter, PluginOptions, TarballCallback} from './types';
 import {generateZip} from './utils';
 
-const FilepondZipper =
-  (callback?: ZipperCallback) =>
+const FilepondTarball =
+  (callback?: TarballCallback) =>
   ({addFilter}: PluginOptions): Filter => {
     addFilter('ADD_ITEMS', async (items) => {
       const generators = generateZip(items);
@@ -22,4 +22,4 @@ const FilepondZipper =
     return {options: {}};
   };
 
-export default FilepondZipper;
+export default FilepondTarball;

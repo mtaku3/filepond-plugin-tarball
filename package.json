@@ -1,38 +1,37 @@
 {
-  "name": "filepond-plugin-zipper",
-  "version": "2.0.0",
-  "description": "Zip Filepond Directory Uploads",
-  "source": "src/zipper.ts",
-  "main": "dist/zipper.js",
-  "module": "dist/zipper.esm.js",
-  "unpkg": "dist/zipper.min.js",
+  "name": "filepond-plugin-tarball",
+  "version": "1.0.0",
+  "description": "Tarball Filepond Directory Uploads",
+  "source": "src/tarball.ts",
+  "main": "dist/tarball.js",
+  "module": "dist/tarball.esm.js",
+  "unpkg": "dist/tarball.min.js",
   "scripts": {
-    "build": "microbundle --name FilepondZipper --globals jszip=JSZip",
-    "dev": "microbundle watch --name FilepondZipper --globals jszip=JSZip",
+    "build": "microbundle --name FilepondTarball --globals jszip=JSZip",
+    "dev": "microbundle watch --name FilepondTarball --globals jszip=JSZip",
     "lint": "eslint src",
     "test": "jest --verbose",
     "test:ci": "jest --ci --runInBand --verbose"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tzsk/filepond-plugin-zipper.git"
+    "url": "git+https://github.com/mtaku3/filepond-plugin-tarball.git"
   },
   "keywords": [
     "filepond",
-    "zip directory",
-    "upload zipped directory",
-    "filepond zip directory"
+    "tarball directory",
+    "upload directory"
   ],
   "author": {
-    "name": "Kazi Ahmed",
-    "email": "mailtokmahmed@gmail.com",
-    "url": "https://github.com/tzsk"
+    "name": "mtaku3",
+    "email": "m.taku3.1222@gmail.com",
+    "url": "https://mtaku3.com"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tzsk/filepond-plugin-zipper/issues"
+    "url": "https://github.com/mtaku3/filepond-plugin-tarball/issues"
   },
-  "homepage": "https://github.com/tzsk/filepond-plugin-zipper#readme",
+  "homepage": "https://github.com/mtaku3/filepond-plugin-tarball#readme",
   "engines": {
     "node": ">=14"
   },

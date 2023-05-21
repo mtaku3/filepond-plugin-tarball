@@ -29,7 +29,7 @@ export type OnUpdateCallback = (metadata: Metadata) => void;
 
 export type GeneratorCallback = (onUpdate?: OnUpdateCallback) => Promise<ItemType>;
 
-export type ZipperCallback = (generators: GeneratorCallback[]) => unknown;
+export type TarballCallback = (generators: GeneratorCallback[]) => unknown;
 
 export class Item extends File implements ItemType {
   // eslint-disable-next-line @typescript-eslint/naming-convention
