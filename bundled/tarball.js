@@ -57,12 +57,12 @@
       }, 0);
       b.set(stringToUint8(pad(checksum, 7)), offsets.chksum);
       b.set(f.content, bsize);
-      sum = new Uint8Array(buffer.byteLength + b.byteLength);
+      const sum = new Uint8Array(buffer.byteLength + b.byteLength);
       sum.set(buffer, 0);
       sum.set(b, buffer.byteLength);
       buffer = sum;
     }
-    sum = new Uint8Array(buffer.byteLength + bsize * 2);
+    const sum = new Uint8Array(buffer.byteLength + bsize * 2);
     sum.set(buffer, 0);
     return sum;
   }
