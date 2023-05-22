@@ -4,3 +4,4 @@ dist/*
 .eslintrc.js
 babel.config.js
 jest.config.js
+src/tarts.js

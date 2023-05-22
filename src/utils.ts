@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import Tar from 'tarts';
+import Tar from './tarts';
 import {GeneratorCallback, Item, ItemType} from './types';
 
 const directories = {};
@@ -35,7 +35,7 @@ export const generateTar = (items: ItemType[]): GeneratorCallback[] => {
             resolve({
               // Delete first character of string because it starts with '/'
               name: file._relativePath.slice(1),
-              content: event.target.result,
+              content: new Uint8Array(event.target.result as ArrayBuffer),
             });
           });
           reader.readAsArrayBuffer(file);
