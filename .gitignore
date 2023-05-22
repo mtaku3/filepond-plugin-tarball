@@ -115,6 +115,3 @@ out
 .pnp.*
 index.html
 .DS_Store
-
-# build
-dist
