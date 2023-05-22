@@ -4,11 +4,21 @@ This is an extension plugin for [FilePond](https://pqina.nl/filepond/) uploader 
 
 ## :package: Installation
 
-Currently unavailable.
+```bash
+// NPM:
+$ npm install --save filepond-plugin-tarball
+
+// Yarn:
+yarn add filepond-plugin-tarball
+```
 
 ### CDN
 
-Currently unavailable.
+```
+https://cdn.jsdelivr.net/npm/filepond-plugin-tarball@1.0.0/bundled/tarball.min.js
+// OR
+https://unpkg.com/filepond-plugin-tarball@1.0.0/bundled/tarball.min.js
+```
 
 ## :fire: Usage
 
