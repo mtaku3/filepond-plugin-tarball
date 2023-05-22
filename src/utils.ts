@@ -33,7 +33,8 @@ export const generateTar = (items: ItemType[]): GeneratorCallback[] => {
 
           reader.addEventListener('load', (event) => {
             resolve({
-              name: file._relativePath,
+              // Delete first character of string because it starts with '/'
+              name: file._relativePath.slice(1),
               content: event.target.result,
             });
           });
