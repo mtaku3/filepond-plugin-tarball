@@ -99,6 +99,7 @@
     }
   }
 
+  // eslint-disable-next-line import/no-extraneous-dependencies
   const directories = {};
   const getDirectoryGroups = items => {
     items.filter(item => item._relativePath).forEach(item => {
@@ -115,25 +116,25 @@
     return Object.keys(directories).map(name => {
       const entries = [];
       directories[name].forEach(file => {
-        entries.push(new Promise((resolve, reject) => {
-          let reader = new FileReader();
-          reader.onload = event => {
+        entries.push(new Promise(resolve => {
+          const reader = new FileReader();
+          reader.addEventListener('load', event => {
             resolve({
               name: file._relativePath,
               content: event.target.result
             });
-          };
+          });
           reader.readAsArrayBuffer(file);
         }));
       });
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete directories[name];
-      return function (onUpdate) {
+      return function () {
         try {
           return Promise.resolve(Promise.all(entries)).then(function (_Promise$all) {
             const tar = tarts(_Promise$all);
             const file = new Blob([tar], {
-              "type": "application/x-tar"
+              type: 'application/x-tar'
             });
             return new Item([file], `${name}.tar`);
           });

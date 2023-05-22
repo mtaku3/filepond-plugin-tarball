@@ -1,5 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Tar from 'tarts';
-import {GeneratorCallback, Item, ItemType, OnUpdateCallback} from './types';
+import {GeneratorCallback, Item, ItemType} from './types';
 
 const directories = {};
 
@@ -27,15 +28,16 @@ export const generateTar = (items: ItemType[]): GeneratorCallback[] => {
 
     directories[name].forEach((file) => {
       entries.push(
-        new Promise((resolve, reject) => {
-          let reader = new FileReader();
-          reader.onload = (event) => {
+        new Promise((resolve) => {
+          const reader = new FileReader();
+
+          reader.addEventListener('load', (event) => {
             resolve({
               name: file._relativePath,
-              content: event.target.result
-            })
-          };
-          reader.readAsArrayBuffer(file)
+              content: event.target.result,
+            });
+          });
+          reader.readAsArrayBuffer(file);
         })
       );
     });
@@ -43,9 +45,9 @@ export const generateTar = (items: ItemType[]): GeneratorCallback[] => {
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete directories[name];
 
-    return async (onUpdate?: OnUpdateCallback): Promise<ItemType> => {
+    return async (): Promise<ItemType> => {
       const tar = Tar(await Promise.all(entries));
-      const file = new Blob([tar], {"type":"application/x-tar"});
+      const file = new Blob([tar], {type: 'application/x-tar'});
 
       return new Item([file], `${name}.tar`);
     };
