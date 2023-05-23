@@ -15,9 +15,9 @@ yarn add filepond-plugin-tarball
 ### CDN
 
 ```
-https://cdn.jsdelivr.net/npm/filepond-plugin-tarball@1.0.1/bundled/tarball.min.js
+https://cdn.jsdelivr.net/npm/filepond-plugin-tarball@1.1.0/bundled/tarball.min.js
 // OR
-https://unpkg.com/filepond-plugin-tarball@1.0.1/bundled/tarball.min.js
+https://unpkg.com/filepond-plugin-tarball@1.1.0/bundled/tarball.min.js
 ```
 
 ## :fire: Usage
