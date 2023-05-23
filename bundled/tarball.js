@@ -76,15 +76,6 @@
     return a;
   }
 
-  class Item extends File {
-    constructor(...args) {
-      super(...args);
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      this._relativePath = void 0;
-    }
-  }
-
-  // eslint-disable-next-line import/no-extraneous-dependencies
   const directories = {};
   const getDirectoryGroups = items => {
     items.filter(item => item._relativePath).forEach(item => {
@@ -96,8 +87,31 @@
     });
     return directories;
   };
-  const generateTar = items => {
-    getDirectoryGroups(items);
+  const getFilenameWithoutExtension = name => name.substring(0, name.lastIndexOf('.')) || name;
+  const generateTar = (items, splitInDirectoryGroups, archivePlainFiles) => {
+    if (splitInDirectoryGroups) {
+      getDirectoryGroups(items);
+      if (archivePlainFiles) {
+        const plainFiles = items.filter(item => !item._relativePath);
+        if (0 < plainFiles.length) {
+          const first = plainFiles[0];
+          const fileNameWithoutExtension = getFilenameWithoutExtension(first.name);
+          directories[fileNameWithoutExtension] = plainFiles;
+        }
+      }
+    } else {
+      const notPlainFiles = items.filter(item => item._relativePath);
+      const plainFiles = items.filter(item => !item._relativePath);
+      if (0 < notPlainFiles.length) {
+        const first = notPlainFiles[0];
+        const [, rootDirectoryName] = first._relativePath.split('/');
+        directories[rootDirectoryName] = items;
+      } else {
+        const first = plainFiles[0];
+        const fileNameWithoutExtension = getFilenameWithoutExtension(first.name);
+        directories[fileNameWithoutExtension] = items;
+      }
+    }
     return Object.keys(directories).map(name => {
       const entries = [];
       directories[name].forEach(file => {
@@ -106,14 +120,13 @@
           reader.addEventListener('load', event => {
             resolve({
               // Delete first character of string because it starts with '/'
-              name: file._relativePath.slice(1),
+              name: file._relativePath ? file._relativePath.slice(1) : file.name,
               content: new Uint8Array(event.target.result)
             });
           });
           reader.readAsArrayBuffer(file);
         }));
       });
-      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete directories[name];
       return function () {
         try {
@@ -122,7 +135,7 @@
             const file = new Blob([tar], {
               type: 'application/x-tar'
             });
-            return new Item([file], `${name}.tar`);
+            return new File([file], `${name}.tar`);
           });
         } catch (e) {
           return Promise.reject(e);
@@ -131,13 +144,16 @@
     });
   };
 
-  const FilePondPluginTarball = callback => ({
+  const FilePondPluginTarball = (archiveMultipleDirectoriesIntoOne = false, archivePlainFiles = false, callback) => ({
     addFilter
   }) => {
     addFilter('ADD_ITEMS', function (items) {
       try {
-        const generators = generateTar(items);
-        const plainFiles = items.filter(item => !item._relativePath);
+        const generators = generateTar(items, !archiveMultipleDirectoriesIntoOne, archivePlainFiles);
+        let plainFiles = [];
+        if (!archivePlainFiles) {
+          plainFiles = items.filter(item => !item._relativePath);
+        }
         if (callback) {
           callback(generators);
           return Promise.resolve(plainFiles);

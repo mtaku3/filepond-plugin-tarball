@@ -3,18 +3,12 @@ module.exports = {
         "browser": true,
         "es2021": true
     },
-    "extends": [
-      "eslint-config-tc",
-      "eslint-config-typescript-tc",
-    ],
-    "parser": "@typescript-eslint/parser",
+    "extends": ["eslint:recommended"],
     "parserOptions": {
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "plugins": [
-        "@typescript-eslint"
-    ],
+    "plugins": [],
     "rules": {
       "import/extensions": "off",
       "import/no-unresolved": "off",
